@@ -523,6 +523,7 @@ p.dr(p.x,p.y)
 # rkt=runTimer(0)
 do=""
 fps=calcFrm()
+ts=time()
 while True:
     fps.run()
     prat("fps: "+str(fps.getCur()),12,1)
@@ -533,7 +534,19 @@ while True:
     # move(0,12)
     # if rkt.run():
     do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
+    if ts-time()<1:
+        continue
+    ts=time()
     prat(do,1,15)
+    match do:
+        case "up":
+            do="u"
+        case "right":
+            do="r"
+        case "down":
+            do="d"
+        case "left":
+            do="l"
     if do=="s":
         writSave()
     

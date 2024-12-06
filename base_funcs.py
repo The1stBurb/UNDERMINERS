@@ -78,7 +78,7 @@ class calcFrm:
     def run(self):
         self.pr=self.rn
         self.rn=time.time()
-        self.fpsv.append(1/(self.rn-self.pr))
+        self.fpsv.append(1/(self.rn-self.pr+0.0001))
         if len(self.fpsv)>50:
             self.fpsv.pop(0)
     def getAvr(self):
