@@ -1,4 +1,5 @@
 from math import sqrt
+import time
 def constrain(val, min_val, max_val):
     return min(max_val, max(min_val, val))
 def move(x, y):
@@ -45,6 +46,22 @@ class itm:
         self.no=amnt
     def __str__(self):
         return f"{self.no}x {repr(self.tp)}"
+def calcfps(num_frames=100):
+    fps_values = []
+    prev_frame_time = time.time()
+    
+    for _ in range(num_frames):
+        # Simulate frame processing
+        # Replace this with your actual frame processing code
+        time.sleep(0.01)  # Simulating 10ms of processing time
+        
+        new_frame_time = time.time()
+        fps = 1 / (new_frame_time - prev_frame_time)
+        fps_values.append(fps)
+        prev_frame_time = new_frame_time
+    
+    avg_fps = sum(fps_values) / len(fps_values)
+    return round(avg_fps, 2)
 class runTimer:
     def __init__(self,fps,speed=(1/60)):#strt,end,speed):
         # self.st,self.ed,self.sp=strt,end,speed

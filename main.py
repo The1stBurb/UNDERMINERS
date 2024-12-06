@@ -519,10 +519,11 @@ getSave()
 # piler.saver(mp.bit)
 pr(p.x,p.y)
 p.dr(p.x,p.y)
-dpt=runTimer(0)
+dpt=runTimer(1000000)
 rkt=runTimer(60)
 do=""
 while True:
+    prat("average fps: "+str(calcfps()),12,1)
     if dpt.run():
         for i in bobs:
             i.run(mp.bit,[],p)
