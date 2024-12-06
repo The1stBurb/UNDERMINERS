@@ -46,22 +46,22 @@ class itm:
         self.no=amnt
     def __str__(self):
         return f"{self.no}x {repr(self.tp)}"
-def calcfps(num_frames=100):
-    fps_values = []
-    prev_frame_time = time.time()
+# def calcfps(num_frames=100):
+#     fps_values = []
+#     prev_frame_time = time.time()
     
-    for _ in range(num_frames):
-        # Simulate frame processing
-        # Replace this with your actual frame processing code
-        time.sleep(0.01)  # Simulating 10ms of processing time
+#     for _ in range(num_frames):
+#         # Simulate frame processing
+#         # Replace this with your actual frame processing code
+#         time.sleep(0.01)  # Simulating 10ms of processing time
         
-        new_frame_time = time.time()
-        fps = 1 / (new_frame_time - prev_frame_time)
-        fps_values.append(fps)
-        prev_frame_time = new_frame_time
+#         new_frame_time = time.time()
+#         fps = 1 / (new_frame_time - prev_frame_time)
+#         fps_values.append(fps)
+#         prev_frame_time = new_frame_time
     
-    avg_fps = sum(fps_values) / len(fps_values)
-    return round(avg_fps, 2)
+#     avg_fps = sum(fps_values) / len(fps_values)
+#     return round(avg_fps, 2)
 class runTimer:
     def __init__(self,fps,speed=(1/60)):#strt,end,speed):
         # self.st,self.ed,self.sp=strt,end,speed
@@ -70,3 +70,18 @@ class runTimer:
     def run(self):
         self.cc+=1
         return self.cc>=self.fps
+class calcFrm:
+    def __init__(self):
+        self.rn=time.time()
+        self.pr=self.rn
+        self.fpsv=[]
+    def run(self):
+        self.pr=self.rn
+        self.rn=time.time()
+        self.fpsv.append(1/(self.rn-self.pr))
+        if len(self.fpsv)>50:
+            self.fpsv.pop(0)
+    def getAvr(self):
+        return round(sum(self.fpsv)/len(self.fpsv),2)
+    def getCur(self):
+        return round(self.fpsv[-1],2)

@@ -522,8 +522,10 @@ p.dr(p.x,p.y)
 # dpt=runTimer(10)
 # rkt=runTimer(0)
 do=""
+fps=calcFrm()
 while True:
-    prat("average fps: "+str(calcfps()),12,1)
+    fps.run()
+    prat("fps: "+str(fps.getCur()),12,1)
     # if dpt.run():
     for i in bobs:
         i.run(mp.bit,[],p)
