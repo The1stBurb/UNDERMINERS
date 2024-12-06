@@ -1,14 +1,28 @@
 #https://docs.google.com/document/d/1c2sKY1Q4PDsK8h_j1TRbw3K_OkEq5jbrHTj6mb4z3LY/edit?tab=t.0
-from zoreuh import nts,no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest,chest52
-from zitemuh import hts,pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword,burb
+from items.oreuh import nts,no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest,chest52
+from items.itemuh import hts,pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword,burb
 from base_funcs import *
 from bobs import xny,bobs
+from Loot.looter import gitStf
 
 from time import sleep
 from random import randint,choice
 
 import saveus.piler as piler
 import sys
+def roll():
+    rolled=[]
+    while len(rolled)<randint(3,9):
+        ch=choice(gitStf())
+        if randint(0,100)<=ch[1]:
+            rolled.append([ch[0],randint(ch[2][0],ch[2][1])])
+    roll2=[]
+    for i in rolled:
+        if str(i[0])[-1]=="0":
+            roll2.append([nts[int(i[0]/10)],i[1]])
+        else:
+            roll2.append([hts[int(i[0]/10)],i[1]])
+    return roll2
 #this makes cool shapes
 def get_dir(n):
     if n==0:#up
@@ -229,7 +243,7 @@ class MP:
         for a,i in enumerate(self.bit):
             for b,j in enumerate(i):
                 if j==10:
-                    self.data[f"{b},{a}"]=chest52("chest","C",1,10,"chest",0)
+                    self.data[f"{b},{a}"]=chest52("chest","C",1,10,"chest",0,roll())
         #             print(f"{b},{a}")
         # input()
     #runs the save code for JUST THE MAP, must be implemetned with the player and entity save codes!
@@ -345,6 +359,7 @@ class plr:
             if mp.bit[self.y+mv[1]][self.x+mv[0]]==10:
                 c=mp.data[f"{self.x+mv[0]},{self.y+mv[1]}"]
                 c.prHold(self)
+                pr(self.x,self.y)
             return
         elif d=="p":
             mv=gd(self.dir)
@@ -448,6 +463,7 @@ p=plr()
 # quit()
 mp=MP()
 def pr(x,y):
+    print("\033c")
     move(1,1)
     x2=int(x/10)*10
     y2=int(y/10)*10

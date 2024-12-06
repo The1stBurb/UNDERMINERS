@@ -7,7 +7,8 @@
 # charcor_ore="◘"
 # placed_rock=" "
 from base_funcs import prat,intput,gtInt,itm
-from zlooter import roll
+# from zlooter import roll
+from random import choice,randint
 # from itemuh import *
 
 class brck:
@@ -60,21 +61,14 @@ class charcor_ore52(brck):
 class dirt52(brck):
     pass
 class chest52(brck):
-    def __init__(self,nm,disp,sprd,num,pronc,mnLvl):
+    def __init__(self,nm,disp,sprd,num,pronc,mnLvl,roleth):
         super().__init__(nm,disp,sprd,num,pronc,mnLvl)
         self.holds=[
             [itm(dirt,10),itm(void,0),itm(void,0),],
             [itm(void,0),itm(void,0),itm(void,0),],
             [itm(void,0),itm(void,0),itm(void,0),],
             ]
-        r=roll()
-        roll2=[]
-        for i in rolled:
-            if str(i[0])[-1]=="0":
-                roll2.append([nts[int(i[0]/10)],i[1]])
-            else:
-                roll2.append([hts[int(i[0]/10)],i[1]])
-        r=roll2
+        r=roleth
         while len(r)>0:
             x,y=randint(0,2),randint(0,2)
             if self.holds[y][x].tp.nm=="void":
@@ -119,6 +113,6 @@ void=brck("void"," ",0,8," ",1234567890)
 
 dirt=dirt52("dirt","@",15,9,"dirt",0)
 
-chest=chest52("chest","C",1,10,"chest",0)
+chest=chest52("chest","C",1,10,"chest",0,[])
 nts=[no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest]
 # print(rock+dark_rock+placed_rock+charium_ore+nevelium_ore+decante_ore+charcor_ore)

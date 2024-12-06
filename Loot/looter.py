@@ -15,12 +15,9 @@ for i in dat:
     ran=d[2].split("-")
     # print("id:",resiz[d[0][:-1]],"Percent:",int(d[1][:-2]),"Range:",ran[0],"-",ran[1])
     stuffs.append([resiz[d[0][:-1]],int(d[1][:-2]),[int(ran[0]),int(ran[1])]])
-def roll():
-    rolled=[]
-    while len(rolled)<randint(3,9):
-        ch=choice(stuffs)
-        if randint(0,100)<=ch[1]:
-            rolled.append([ch[0],randint(ch[2][0],ch[2][1])])
+def gitStf():
+    return stuffs
+
     return rolled
     # roll2=[]
     # for i in rolled:
