@@ -519,19 +519,19 @@ getSave()
 # piler.saver(mp.bit)
 pr(p.x,p.y)
 p.dr(p.x,p.y)
-dpt=runTimer(1000000)
-rkt=runTimer(60)
+# dpt=runTimer(10)
+# rkt=runTimer(0)
 do=""
 while True:
     prat("average fps: "+str(calcfps()),12,1)
-    if dpt.run():
-        for i in bobs:
-            i.run(mp.bit,[],p)
-        p.mover(do)
+    # if dpt.run():
+    for i in bobs:
+        i.run(mp.bit,[],p)
+    p.mover(do)
     # move(0,12)
-    if dpt.run():
-        do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
-        prat(do,1,15)
-        if do=="s":
-            writSave()
+    # if rkt.run():
+    do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
+    prat(do,1,15)
+    if do=="s":
+        writSave()
     
