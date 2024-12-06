@@ -10,6 +10,7 @@ from random import randint,choice
 
 import saveus.piler as piler
 import sys
+import keyboard
 def roll():
     rolled=[]
     while len(rolled)<randint(3,9):
