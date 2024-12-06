@@ -8,9 +8,29 @@ from Loot.looter import gitStf
 from time import sleep
 from random import randint,choice
 
-import saveus.piler as piler
-import sys
-import keyboard
+import saveus.piler as piler,sys,keyboard,mouse
+class mos:
+    def __init__(self):
+        self.ix=0
+        self.iy=0
+        self.init()
+    def get(self):
+        gp=mouse.get_position()
+        return [gp[0]-self.ix,gp[1]-self.iy]
+    def init(self):
+        print("\033c",end="")
+        # print("asdlkjandskgksa")
+        print("#  CLICK ON THE HASH with the LEFT button! If you do not the game will not WORK",1,1)
+        while self.ix==0 and self.iy==0:
+            sleep(0.1)
+            if mouse.is_pressed():
+                got=self.get()
+                self.ix=got[0]
+                self.iy=got[1]
+    def __str__(self):
+        g=self.get()
+        return f"{round(g[0])},{round(g[1])}"
+m=mos()
 def roll():
     rolled=[]
     while len(rolled)<randint(3,9):
@@ -20,9 +40,11 @@ def roll():
     roll2=[]
     for i in rolled:
         if str(i[0])[-1]=="0":
-            roll2.append([nts[int(i[0]/10)],i[1]])
+            if int(i[0]/10)<len(nts):
+                roll2.append([nts[int(i[0]/10)],i[1]])
         else:
-            roll2.append([hts[int(i[0]/10)],i[1]])
+            if int(i[0]/10)<len(hts):
+                roll2.append([hts[int(i[0]/10)],i[1]])
     return roll2
 #this makes cool shapes
 def get_dir(n):
@@ -412,11 +434,18 @@ class plr:
             print("\033c")
             for b in range(5):
                 prat(b+1,b*16+3,1)
+            print("|")
             for a,i in enumerate(self.hold):
                 prat(a+1,1,a+(3 if a==5 else 2))
                 for b,j in enumerate(i):
                     prat("|"+str(j),(b)*16+3,(a)+(3 if a==5 else 2))
-            print("Row 6 is the bar you can access anytime!")
+                print("|")
+            print("\nRow 6 is the bar you can access anytime! |EXIT|")
+            while True:
+                prat(m,1,15)
+                print("")
+                sleep(0.1)
+            continue
             dor=intput("Would you like to move an item or exit? (move,exit)")
             if dor=="move":
                 x1,y1=gtInt("What is the X coordinate of the item?"),gtInt("Whats the Y?")
@@ -478,12 +507,13 @@ def pr(x,y):
     # yn=max(0,y)
     yx=min(y2+10,len(mp.bit))
     for i in range(y2,yx):
+        # for k in range(2):
         for j in range(x2,min(x2+10,len(mp.bit[i]))):
-            # move(i+2,j+2)
             tp=mp.bit[i][j]
             aired=tp in[0,1,8,10] or (i>0 and mp.bit[i-1][j]in[0,1,8]) or (i<len(mp.bit)-1 and mp.bit[i+1][j]in[0,1,8]) or (j>0 and mp.bit[i][j-1]in[0,1,8]) or (j<len(mp.bit[i])-1 and mp.bit[i][j+1]in[0,1,8])
+            # move(i+2,j+2)
             if aired:
-                print(nts[tp],end="")
+                print(str(nts[tp]),end="")
             else:
                 print("#",end="")
             # sleep(1)
@@ -521,7 +551,7 @@ def writSave():
     global mp
     with open("saveus/save.pile","w")as sv:
         sv.write(piler.enc(mp.bit))
-if intput("Get a new game, or use your old save? (new/old)")=="new":
+if False:#intput("Get a new game, or use your old save? (new/old)")=="new":
     writSave()
 else:
     getSave()
@@ -535,9 +565,10 @@ do=""
 fps=calcFrm()
 ts=time.time()
 pk=["","","",""]
+dev=False
 while True:
     fps.run()
-    prat("fps: "+str(fps.getCur()),12,1)
+    prat("fps: "+str(fps.getCur())+"          ",13,1)
     # if dpt.run():
     for i in bobs:
         i.run(mp.bit,[],p)
@@ -545,6 +576,8 @@ while True:
     # move(0,12)
     # if rkt.run():
     sleep(0.1)
+    prat("Use arrow keys, wasd coming soon, to move. \"i\" to open your inventory. \"o\" to open the chest in front of you. \"s\" to save the map only rn. \"b\" breaks the block in front of you, along with holding down an arrow key. Use number keys 1-5 to change your selected hotbar. \"p\" places the current selected block in front of you.",1,13)
+    print(m)
     do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
     t2=time.time()
     if t2-ts<7 and do==pk[-1]:
@@ -554,7 +587,8 @@ while True:
             pk.append(do)
             continue
     pk.append(do)
-    prat(str(t2-ts)+str(randint(0,10)),1,16)
+    if dev:
+        prat(str(t2-ts)+str(randint(0,10)),1,16)
     ts=t2
     prat(do,1,15)
     match do:
