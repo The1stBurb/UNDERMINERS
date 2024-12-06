@@ -352,6 +352,8 @@ class plr:
             self.prInv()
             return
         elif d=="o":
+            # sleep(0.5)
+            keyboard.send("backspace")
             mv=gd(self.dir)
             if self.y+mv[1]<0 or self.y+mv[1]>len(mp.bit)-1:
                 return
@@ -360,6 +362,8 @@ class plr:
             if mp.bit[self.y+mv[1]][self.x+mv[0]]==10:
                 c=mp.data[f"{self.x+mv[0]},{self.y+mv[1]}"]
                 c.prHold(self)
+                sleep(0.5)
+                print("\033c")
                 pr(self.x,self.y)
             return
         elif d=="p":
@@ -403,6 +407,7 @@ class plr:
         #     for j in i:
         #         print(j)
         # intput()
+        keyboard.send("backspace")
         while True:
             print("\033c")
             for b in range(5):
@@ -425,6 +430,8 @@ class plr:
                 self.hold[y1-1][x1-1],self.hold[y2-1][x2-1]=it2,it1
             elif dor=="exit":
                 print("Exiting...")
+                sleep(0.5)
+                print("\033c")
                 return
     def prInv1(self):
         for b in range(5):
@@ -464,7 +471,7 @@ p=plr()
 # quit()
 mp=MP()
 def pr(x,y):
-    print("\033c")
+    # print("\033c")
     move(1,1)
     x2=int(x/10)*10
     y2=int(y/10)*10
@@ -514,8 +521,11 @@ def writSave():
     global mp
     with open("saveus/save.pile","w")as sv:
         sv.write(piler.enc(mp.bit))
-# writSave()
-getSave()
+if intput("Get a new game, or use your old save? (new/old)")=="new":
+    writSave()
+else:
+    getSave()
+print("\033c")
 # piler.saver(mp.bit)
 pr(p.x,p.y)
 p.dr(p.x,p.y)
@@ -523,7 +533,8 @@ p.dr(p.x,p.y)
 # rkt=runTimer(0)
 do=""
 fps=calcFrm()
-ts=time()
+ts=time.time()
+pk=["","","",""]
 while True:
     fps.run()
     prat("fps: "+str(fps.getCur()),12,1)
@@ -533,10 +544,18 @@ while True:
     p.mover(do)
     # move(0,12)
     # if rkt.run():
+    sleep(0.1)
     do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
-    if ts-time()<1:
-        continue
-    ts=time()
+    t2=time.time()
+    if t2-ts<7 and do==pk[-1]:
+        if pk[-2]==pk[-3] and pk[-4]==do:# and pk[-3]==pk[-4]
+            do="b"
+        else:
+            pk.append(do)
+            continue
+    pk.append(do)
+    prat(str(t2-ts)+str(randint(0,10)),1,16)
+    ts=t2
     prat(do,1,15)
     match do:
         case "up":
