@@ -519,16 +519,18 @@ getSave()
 # piler.saver(mp.bit)
 pr(p.x,p.y)
 p.dr(p.x,p.y)
+dpt=runTimer(0)
+rkt=runTimer(60)
+do=""
 while True:
-    for i in bobs:
-        i.run(mp.bit,[],p)
-    move(0,12)
-    do=input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
-    if do=="s":
-        writSave()
-    # move(0,15)
-    p.mover(do)
-    # move(0,15)
-    # print(p.x%10,(p.x-1)%10,p.y%10,(p.y-1)%10,p.dir)
-    # print(p.x,p.y)
-    # p.oub()
+    if dpt.run():
+        for i in bobs:
+            i.run(mp.bit,[],p)
+        p.mover(do)
+    # move(0,12)
+    if dpt.run():
+        do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
+        prat(do,1,15)
+        if do=="s":
+            writSave()
+    

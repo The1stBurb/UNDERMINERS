@@ -45,3 +45,11 @@ class itm:
         self.no=amnt
     def __str__(self):
         return f"{self.no}x {repr(self.tp)}"
+class runTimer:
+    def __init__(self,fps,speed=(1/60)):#strt,end,speed):
+        # self.st,self.ed,self.sp=strt,end,speed
+        self.fps,self.sp=fps,speed
+        self.cc=0
+    def run(self):
+        self.cc+=1
+        return self.cc>=self.fps
