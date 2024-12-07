@@ -23,6 +23,12 @@ class mos:
         print("#  CLICK ON THE HASH with the LEFT button! If you do not the game will not WORK",1,1)
         while self.ix==0 and self.iy==0:
             sleep(0.1)
+            prat(self.__str__()+" "*10,1,2)
+            #right side-332,687
+            #left side-322,687
+            #top side-327,700
+            #bottom side-327,700
+            print()
             if mouse.is_pressed():
                 got=self.get()
                 self.ix=got[0]
@@ -442,9 +448,13 @@ class plr:
                 print("|")
             print("\nRow 6 is the bar you can access anytime! |EXIT|")
             while True:
-                prat(m,1,15)
+                prat(str(m)+" "*10,1,15)
                 print("")
                 sleep(0.1)
+                #y-13, 11,108,204,299,396
+                #y-27, ,,,,
+                #y-41, ,,,,
+                #y-55, ,,,,
             continue
             dor=intput("Would you like to move an item or exit? (move,exit)")
             if dor=="move":
