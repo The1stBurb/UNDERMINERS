@@ -36,11 +36,13 @@ class mos:
             print()
             if mouse.is_pressed():
                 got=self.get()
-                self.ix=got[0]
-                self.iy=got[1]
+                self.ix=got.x
+                self.iy=got.y
+    def ip(self):
+        return mouse.is_pressed()
     def __str__(self):
         g=self.get()
-        return f"{round(g[0])},{round(g[1])}"
+        return f"{round(g.x)},{round(g.y)}"
 m=mos()
 def roll():
     rolled=[]
@@ -452,19 +454,6 @@ class plr:
                     prat("|"+str(j),(b)*16+3,(a)+(3 if a==5 else 2))
                 print("|")
             print("\nRow 6 is the bar you can access anytime! |EXIT|")
-            while True:
-                prat(str(m)+" "*10,1,15)
-                print("")
-                sleep(0.1)
-                # y-13, 11,108,204,299,396
-                # y-27, ,,,,
-                # y-41, ,,,,
-                # y-55, ,,,,
-                #ys-13,27,41,55,69,97
-                #     14 14 14 14 14
-                #xs-12,108,204,300,396
-                #     96  96  96  96
-            continue
             dor=intput("Would you like to move an item or exit? (move,exit)")
             if dor=="move":
                 x1,y1=gtInt("What is the X coordinate of the item?"),gtInt("Whats the Y?")
