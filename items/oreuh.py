@@ -10,7 +10,7 @@ from base_funcs import prat,intput,gtInt,itm
 # from zlooter import roll
 from random import choice,randint
 # from itemuh import *
-
+from time import sleep
 class brck:
     def __init__(self,nm,disp,sprd,num,pronc,mnLvl):#name,what is displayed,the spread of a section, the id/num of place in nts list, how to pronounce,what level it takes to mine
         self.nm=nm
@@ -75,31 +75,75 @@ class chest52(brck):
                 ch=choice(r)
                 self.holds[y][x]=itm(ch[0],ch[1])
                 r.remove(ch)
-    def prHold(self,p):
-        while True:
-            print("\033c")
-            p.prInv1()
-            for b in range(3):
-                prat(b+1,b*16+3,9)
-            for a,i in enumerate(self.holds):
-                prat(a+1,1,a+10)
-                for b,j in enumerate(i):
-                    prat("|"+str(j),b*16+3,a+10)
-            dor=intput("\nWould you like to move an item or exit? (move,exit)")
-            if dor=="move":
-                inor=intput("Is it into your inventory or into the chest? (inv,chest)")
-                x1,y1=gtInt("What is the X coordinate of the item in "+("your inventory"if inor=="chest" else "the chest")+"?",1,(3 if inor=="inv" else 5)),gtInt("Whats the Y?",1,(3 if inor=="inv" else 6))
-                x2,y2=gtInt("What is the X coordinate of where you want to move it"+(" into your inventory"if inor=="inv" else " into the chest")+"?",1,(5 if inor=="inv" else 3)),gtInt("What is the Y?",1,(6 if inor=="inv" else 3))
-                # print(x1,y1,x2,y2)
-                it1=self.holds[y1-1][x1-1]
-                it2=p.hold[y2-1][x2-1]
-                if it1.tp.nm==it2.tp.nm:
-                    it1.no+=it2.no
-                    it2=itm(void,0)
-                self.holds[y1-1][x1-1],p.hold[y2-1][x2-1]=it2,it1
-            elif dor=="exit":
-                print("Exiting...")
-                return
+    def prHold(self,p,m):
+        # while True:
+        print("\033c")
+        p.prInv1()
+        for b in range(3):
+            prat(b+1,b*16+3,9)
+        for a,i in enumerate(self.holds):
+            prat(a+1,1,a+10)
+            for b,j in enumerate(i):
+                prat("|"+str(j),b*16+3,a+10)
+        x1,y1,x2,y2=0,0,0,0
+        f1is=""
+        while x1==0 or x2==0 or y1==0 or y2==0:
+            #ys-13,27,41,55,69,97
+            #     14 14 14 14 14
+            #xs-12,108,204,300,396
+            #     96  96  96  96
+            #ys-125,139,153
+            #xs-12,108,204
+            #MINUS 3 ALL X, MINUS 4 ALL Y
+            mp=m.get()
+            x=0
+            if mp.x>=8 and mp.x<105:
+                x=1
+            elif mp.x>=105 and mp.x<201:
+                x=2
+            elif mp.x>=201 and mp.x<297:
+                x=3
+            elif mp.x>=297 and mp.x<393:
+                x=4
+            elif mp.x>=393 and mp.x<393+96:
+                x=5
+            y=0
+            if mp.y>=9 and mp.y<23:
+                y=1
+            elif mp.y>=23 and mp.y<37:
+                y=2
+            elif mp.y>=37 and mp.y<51:
+                y=3
+            elif mp.y>=51 and mp.y<65:
+                y=4
+            elif mp.y>=65 and mp.y<95:
+                y=5
+            elif mp.y>=121 and mp.y<135:
+                y=1
+            elif mp.y>=135 and mp.y<149:
+                y=2
+            elif mp.y>=149 and mp.y<163:
+                y=3
+            if x1==0 and y1==0:
+                x1,y1=x,y
+            else:
+                x2,y2,=x,y
+            # continue
+            # dor=intput("\nWould you like to move an item or exit? (move,exit)")
+            # if dor=="move":
+            #     inor=intput("Is it into your inventory or into the chest? (inv,chest)")
+            #     x1,y1=gtInt("What is the X coordinate of the item in "+("your inventory"if inor=="chest" else "the chest")+"?",1,(3 if inor=="inv" else 5)),gtInt("Whats the Y?",1,(3 if inor=="inv" else 6))
+            #     x2,y2=gtInt("What is the X coordinate of where you want to move it"+(" into your inventory"if inor=="inv" else " into the chest")+"?",1,(5 if inor=="inv" else 3)),gtInt("What is the Y?",1,(6 if inor=="inv" else 3))
+            #     # print(x1,y1,x2,y2)
+            #     it1=self.holds[y1-1][x1-1]
+            #     it2=p.hold[y2-1][x2-1]
+            #     if it1.tp.nm==it2.tp.nm:
+            #         it1.no+=it2.no
+            #         it2=itm(void,0)
+            #     self.holds[y1-1][x1-1],p.hold[y2-1][x2-1]=it2,it1
+            # elif dor=="exit":
+            #     print("Exiting...")
+            #     return
 no_rock=no_rock52("air"," ",10,0,"air",0)
 placed_rock=placed_rock52("placed rock","_",0,1,"placed rock",1)
 rock=rock52("rock","%",-1,2,"rock",1)#◻

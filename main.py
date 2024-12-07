@@ -16,18 +16,23 @@ class mos:
         self.init()
     def get(self):
         gp=mouse.get_position()
-        return [gp[0]-self.ix,gp[1]-self.iy]
+        return xny(gp[0]-self.ix,gp[1]-self.iy)
     def init(self):
         print("\033c",end="")
         # print("asdlkjandskgksa")
-        print("#  CLICK ON THE HASH with the LEFT button! If you do not the game will not WORK",1,1)
+        print("\033[42m\033[31m#\033[0m  CLICK ON THE HASH with the LEFT button! If you do not the game will not WORK",1,1)
         while self.ix==0 and self.iy==0:
             sleep(0.1)
             prat(self.__str__()+" "*10,1,2)
-            #right side-332,687
-            #left side-322,687
-            #top side-327,700
-            #bottom side-327,700
+            # right side-332,687
+            # left side-322,687
+            # top side-327,700
+            # bottom side-327,700
+            #md-327,687
+            #wdth=7
+            #height=14
+            #so top left px is 324,681
+            #btm right px is 330,694
             print()
             if mouse.is_pressed():
                 got=self.get()
@@ -389,7 +394,7 @@ class plr:
                 return
             if mp.bit[self.y+mv[1]][self.x+mv[0]]==10:
                 c=mp.data[f"{self.x+mv[0]},{self.y+mv[1]}"]
-                c.prHold(self)
+                c.prHold(self,m)
                 sleep(0.5)
                 print("\033c")
                 pr(self.x,self.y)
@@ -451,10 +456,14 @@ class plr:
                 prat(str(m)+" "*10,1,15)
                 print("")
                 sleep(0.1)
-                #y-13, 11,108,204,299,396
-                #y-27, ,,,,
-                #y-41, ,,,,
-                #y-55, ,,,,
+                # y-13, 11,108,204,299,396
+                # y-27, ,,,,
+                # y-41, ,,,,
+                # y-55, ,,,,
+                #ys-13,27,41,55,69,97
+                #     14 14 14 14 14
+                #xs-12,108,204,300,396
+                #     96  96  96  96
             continue
             dor=intput("Would you like to move an item or exit? (move,exit)")
             if dor=="move":
@@ -502,6 +511,7 @@ class plr:
     def hnd(self):
         return self.hold[5][self.hl]
 p=plr()
+
 # p.hold[0][0]=itm(rock,10)
 # p.hold[5][0]=itm(rock,10)
 # p.addItm(itm(rock,2))
@@ -561,7 +571,7 @@ def writSave():
     global mp
     with open("saveus/save.pile","w")as sv:
         sv.write(piler.enc(mp.bit))
-if False:#intput("Get a new game, or use your old save? (new/old)")=="new":
+if not False:#intput("Get a new game, or use your old save? (new/old)")=="new":
     writSave()
 else:
     getSave()
