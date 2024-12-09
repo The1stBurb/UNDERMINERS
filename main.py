@@ -10,10 +10,11 @@ from random import randint,choice
 
 import saveus.piler as piler,sys,keyboard,mouse
 class mos:
-    def __init__(self):
+    def __init__(self,ck):
         self.ix=0
         self.iy=0
-        self.init()
+        if ck:
+            self.init()
     def get(self):
         gp=mouse.get_position()
         return xny(gp[0]-self.ix,gp[1]-self.iy)
@@ -43,7 +44,8 @@ class mos:
     def __str__(self):
         g=self.get()
         return f"{round(g.x)},{round(g.y)}"
-m=mos()
+clickify=False#intput("Do you want to use your mouse? This DOESN'T ALWAYS work. Proceed with caution. (y/n)")=="y"
+m=mos(clickify)
 def roll():
     rolled=[]
     while len(rolled)<randint(3,9):
@@ -294,6 +296,7 @@ class MP:
 #     for j in range(3):
 #         move(i+1,j)
 #         print(i)
+dubloons=False
 class plr:
     def __init__(self):
         self.x=0
@@ -311,8 +314,14 @@ class plr:
         # [oy][ox]
         move((ox)%10+1,(oy)%10+1)
         print(no_rock)
-        move((self.x)%10+1,(self.y)%10+1)
-        print(self.us[self.dir])
+        if dubloons:
+            move(((self.x)%10)*2+1,((self.y)%10)*2+1)
+            print(self.us[self.dir]*2)
+            move(((self.x)%10)*2+1,((self.y)%10+1)*2)
+            print(self.us[self.dir]*2)
+        else:
+            move(((self.x)%10)+1,((self.y)%10)+1)
+            print(self.us[self.dir])
         # move(0,13)
         # print("\033[48;5;240m")
         for b,j in enumerate(self.hold[5]):
@@ -396,7 +405,7 @@ class plr:
                 return
             if mp.bit[self.y+mv[1]][self.x+mv[0]]==10:
                 c=mp.data[f"{self.x+mv[0]},{self.y+mv[1]}"]
-                c.prHold(self,m)
+                c.prHold(self,m,clickify)
                 sleep(0.5)
                 print("\033c")
                 pr(self.x,self.y)
@@ -522,12 +531,24 @@ def pr(x,y):
             aired=tp in[0,1,8,10] or (i>0 and mp.bit[i-1][j]in[0,1,8]) or (i<len(mp.bit)-1 and mp.bit[i+1][j]in[0,1,8]) or (j>0 and mp.bit[i][j-1]in[0,1,8]) or (j<len(mp.bit[i])-1 and mp.bit[i][j+1]in[0,1,8])
             # move(i+2,j+2)
             if aired:
-                print(str(nts[tp]),end="")
+                print(str(nts[tp])*(2 if dubloons else 1),end="")
             else:
-                print("#",end="")
+                print("#"*(2 if dubloons else 1),end="")
             # sleep(1)
         # print("|",end="")
         print("|")
+        if dubloons:
+            for j in range(x2,min(x2+10,len(mp.bit[i]))):
+                tp=mp.bit[i][j]
+                aired=tp in[0,1,8,10] or (i>0 and mp.bit[i-1][j]in[0,1,8]) or (i<len(mp.bit)-1 and mp.bit[i+1][j]in[0,1,8]) or (j>0 and mp.bit[i][j-1]in[0,1,8]) or (j<len(mp.bit[i])-1 and mp.bit[i][j+1]in[0,1,8])
+                # move(i+2,j+2)
+                if aired:
+                    print(str(nts[tp])*2,end="")
+                else:
+                    print("#"*2,end="")
+                # sleep(1)
+            # print("|",end="")
+            print("|")
     move(1,13)
     # print(x2,min(x2+10,len(mp.bit[i])-1),y2,yx,len(mp.bit),len(mp.bit[0]),[i for i in range(x2,min(x2+10,len(mp.bit[i])-1))])
     # print("Drawin")
@@ -573,7 +594,19 @@ p.dr(p.x,p.y)
 do=""
 fps=calcFrm()
 ts=time.time()
-pk=["","","",""]
+pk=["" for i in range(10)]
+# def pker(e):
+#     pk.append(e)
+# keyboard.on_press(pker)
+def texter():
+    global pk
+    pk=["" for i in range(10)]
+    print("\033c")
+    while True:
+        pk.append(keyboard.read_key())
+        sleep(0.1)
+        prat(pk[-1],len(pk)-9,1)
+        print("")
 dev=False
 while True:
     fps.run()
@@ -588,6 +621,13 @@ while True:
     prat("Use arrow keys, wasd coming soon, to move. \"i\" to open your inventory. \"o\" to open the chest in front of you. \"s\" to save the map only rn. \"b\" breaks the block in front of you, along with holding down an arrow key. Use number keys 1-5 to change your selected hotbar. \"p\" places the current selected block in front of you.",1,13)
     print(m)
     do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
+    # if pk[-1]=="a" and pk[-2]=="t" and pk[-3]=="a" and pk[-4]=="c":
+    #     for i in nts:
+    #         print(i.stat())
+    #     continue
+    if do=="t":
+        texter()
+        continue
     t2=time.time()
     if t2-ts<7 and do==pk[-1]:
         if pk[-2]==pk[-3] and pk[-4]==do:# and pk[-3]==pk[-4]
