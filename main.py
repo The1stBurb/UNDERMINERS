@@ -341,13 +341,13 @@ class plr:
             # move(0,10)
             # print("\n\n",self.dir,dr,self.x,self.y,nx,ny)
             # return
-        elif d=="u":
+        elif d=="z":
             self.dir=0
-        elif d=="r":
+        elif d=="x":
             self.dir=1
-        elif d=="d":
+        elif d=="c":
             self.dir=2
-        elif d=="l":
+        elif d=="v":
             self.dir=3
         ox,oy=self.x,self.y
         dx=self.x+gd(self.dir)[0]
@@ -391,7 +391,7 @@ class plr:
             # self.x=0 if self.x+mv[0]<0 else(len(mp.bit[self.y+mv[1]])-2 if self.x+mv[0]>=len(mp.bit[self.y+mv[1]])-1 else self.x)
             # self.dr(self.x,self.y)
             return
-        elif d=="s":
+        elif d=="]":
             return
         elif d=="":
             return
@@ -437,8 +437,8 @@ class plr:
                 mp.bit[ny][nx]=0
                 move(nx+1,ny+1)
                 print(no_rock)
-        elif d in "urld":
-            self.dir={"u":0,"r":1,"d":2,"l":3}[d]
+        elif d in "zxcv":
+            self.dir={"z":0,"x":1,"c":2,"v":3}[d]
         mv=gd(self.dir)
         drw=(self.x%10 and self.dir==1) or ((self.x-1)%10 and self.dir==3)or(self.y%10 and self.dir==2) or ((self.y-1)%10 and self.dir==0)
         self.y=0 if self.y+mv[1]<0 else(len(mp.bit)-2 if self.y+mv[1]>=len(mp.bit)-1 else self.y)
@@ -649,13 +649,13 @@ while True:
     prat(do,1,15)
     
     if do == "up" or do == "w":
-        do="u"
+        do="z"
     elif do == "right" or do == "d":
-        do="r"
+        do="x"
     elif do == "down" or do == "s":
-        do="d"
+        do="c"
     elif do == "left" or do == "a":
-        do="l"
+        do="v"
     elif do=="]":
         writSave()
     
