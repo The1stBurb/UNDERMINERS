@@ -1,6 +1,5 @@
 #https://docs.google.com/document/d/1c2sKY1Q4PDsK8h_j1TRbw3K_OkEq5jbrHTj6mb4z3LY/edit?tab=t.0
-from items.oreuh import nts,no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest,chest52
-from items.itemuh import hts,pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword,burb
+from items.oreuh import nts,no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest,chest52,hts,pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword,burb
 from base_funcs import *
 from bobs import xny,bobs
 from Loot.looter import gitStf
