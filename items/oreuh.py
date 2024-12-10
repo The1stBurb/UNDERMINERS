@@ -216,4 +216,5 @@ dirt=dirt52("dirt","@",15,9,"dirt",0,col="\033[48;2;88;57;39m")
 
 chest=chest52("chest","C",1,10,"chest",0,[])
 nts=[no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest]
+#no_rock:0,
 # print(rock+dark_rock+placed_rock+charium_ore+nevelium_ore+decante_ore+charcor_ore)

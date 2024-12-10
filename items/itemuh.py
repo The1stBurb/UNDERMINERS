@@ -13,7 +13,7 @@ class pick52(held):
             "rrr",
             " r ",
             " r ",
-            {}
+            {" ":}
         ]
     # def __init__(idd2,ms):
 class charcor_pick52(held):
@@ -39,3 +39,7 @@ charium_sword=charium_sword52("Charium Sword",5,0,7)
 nevelium_sword=nevelium_sword52("Nevelium Sword",6,1,8)
 # _sword=_sword52("",7,1,10)
 hts=[pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword]
+class p:
+    def __init__(self):
+        self.holds=
+def craft(hav):

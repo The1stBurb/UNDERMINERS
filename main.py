@@ -324,7 +324,7 @@ class plr:
             print(self.us[self.dir]*2)
         else:
             move(((self.x)%10)+1,((self.y)%10)+1)
-            print(self.us[self.dir])
+            print("\033[48;2;101;175;184m"+self.us[self.dir]+"\033[0m")
         # move(0,13)
         # print("\033[48;5;240m")
         for b,j in enumerate(self.hold[5]):
