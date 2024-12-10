@@ -647,15 +647,15 @@ while True:
         prat(str(t2-ts)+str(randint(0,10)),1,16)
     ts=t2
     prat(do,1,15)
-    match do:
-        case "up":
-            do="u"
-        case "right":
-            do="r"
-        case "down":
-            do="d"
-        case "left":
-            do="l"
-    if do=="s":
+    
+    if do == "up" or do == "w":
+        do="u"
+    elif do == "right" or do == "d":
+        do="r"
+    elif do == "down" or do == "s":
+        do="d"
+    elif do == "left" or do == "a":
+        do="l"
+    elif do=="]":
         writSave()
     
