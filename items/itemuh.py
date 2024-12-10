@@ -1,13 +1,20 @@
 #nm,idd
 class held:
-    def __init__(self,nm,idd2,ms,dmg):#name of, id of,mine strength, attack damage
+    def __init__(self,nm,idd2,ms,dmg,bfy=[["","","",{}]]):#name of, id of,mine strength, attack damage
         self.nm,self.idd,self.id,self.ms,self.dmg=nm,-1,idd2,ms,dmg
     def __str__(self):
         return self.nm
     def __repr__(self):
         return self.nm
 class pick52(held):
-    pass
+    def __init__(self,nm,idd2,ms,dmg):
+        super().__init__(nm,idd2,ms,dmg)
+        self.bfy=[
+            "rrr",
+            " r ",
+            " r ",
+            {}
+        ]
     # def __init__(idd2,ms):
 class charcor_pick52(held):
     pass

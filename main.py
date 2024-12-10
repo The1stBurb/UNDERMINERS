@@ -311,7 +311,7 @@ class plr:
         self.hl=0
         self.hold=[
             [itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],
-            [itm(burb,1),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],]
+            [itm(pick,1),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],]
         #exli(exli(itm(void,0),5),5)
     def dr(self,ox,oy):
         # [oy][ox]
