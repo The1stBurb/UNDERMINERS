@@ -9,6 +9,9 @@ from time import sleep
 from random import randint,choice
 
 import saveus.piler as piler,sys,keyboard,mouse
+# for i in nts:
+#     i.stat()
+# input()
 class mos:
     def __init__(self,ck):
         self.ix=0
@@ -384,9 +387,9 @@ class plr:
         if d.isdigit() and inr(int(d)-1,0,5):
             self.hl=int(d)-1
             # print(self.hl)
-            self.y=0 if self.y+mv[1]<0 else(len(mp.bit)-2 if self.y+mv[1]>=len(mp.bit)-1 else self.y)
-            self.x=0 if self.x+mv[0]<0 else(len(mp.bit[self.y+mv[1]])-2 if self.x+mv[0]>=len(mp.bit[self.y+mv[1]])-1 else self.x)
-            self.dr(self.x,self.y)
+            # self.y=0 if self.y+mv[1]<0 else(len(mp.bit)-2 if self.y+mv[1]>=len(mp.bit)-1 else self.y)
+            # self.x=0 if self.x+mv[0]<0 else(len(mp.bit[self.y+mv[1]])-2 if self.x+mv[0]>=len(mp.bit[self.y+mv[1]])-1 else self.x)
+            # self.dr(self.x,self.y)
             return
         elif d=="s":
             return
@@ -553,6 +556,8 @@ def pr(x,y):
     # print(x2,min(x2+10,len(mp.bit[i])-1),y2,yx,len(mp.bit),len(mp.bit[0]),[i for i in range(x2,min(x2+10,len(mp.bit[i])-1))])
     # print("Drawin")
     p.dr(p.x,p.y)
+    for i in bobs:
+        i.disp((i.y,i.x))
     # for i in mp.getTile(x,y).bit:
     #     for j in i:
     #         print(nts[j],end="")
@@ -581,7 +586,7 @@ def writSave():
     global mp
     with open("saveus/save.pile","w")as sv:
         sv.write(piler.enc(mp.bit))
-if not False:#intput("Get a new game, or use your old save? (new/old)")=="new":
+if False:#intput("Get a new game, or use your old save? (new/old)")=="new":
     writSave()
 else:
     getSave()
@@ -625,6 +630,8 @@ while True:
     #     for i in nts:
     #         print(i.stat())
     #     continue
+    if do=="":
+        continue
     if do=="t":
         texter()
         continue

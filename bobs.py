@@ -2,7 +2,7 @@ from collections import deque
 from base_funcs import prat,dist
 from time import sleep
 from math import sin,cos
-from random import randint
+from random import randint,choice
 # from main import mp
 def navigate_maze(maze, start, end):
     rows, cols = len(maze), len(maze[0])
@@ -41,11 +41,14 @@ class xny:
 class bob:
     def __init__(self,x,y,nm,tp,atk,sp):
         self.nm,self.tp,self.atk,self.sp,self.x,self.y=nm,tp,atk,sp,x,y
-        self.s,self.t,self.path=0,xny(self.x,self.y),None
+        self.s,self.t,self.path=0,xny(self.x,self.y),[]
+        self.avp=[]
     def disp(self,d):
         prat(" ",self.x+1,self.y+1)#nots[mapd[self.y][self.x]]
+        print()
         self.y,self.x=d
         prat(self.tp if self.path!=None and len(self.path)>1 else "O",self.x+1,self.y+1)
+        print()
     def mve(self,mapd,nots):
         # global mp
         if self.path==None:
@@ -55,7 +58,9 @@ class bob:
             self.s=self.sp+1    
             return "startPath"
         d=self.path[0]
+        self.disp(d)
         self.path.remove(d)
+        return ""
         # self.disp(d)
         # return "newPath"
     def getTarget(self,pr,mapd):
@@ -63,24 +68,31 @@ class bob:
             self.t.x=pr.x
             self.t.y=pr.y
         else:
-            a=randint(0,360)
-            # self.t.x,self.t.y=int(self.x+sin(a)*3),int(self.y-cos(a)*3)
-            self.t.x,self.t.y=self.x+randint(-2,2),self.y+randint(-2,2)
-            if self.t.y<0:
-                self.t.y=0
-            elif self.t.y>len(mapd)-1:
-                self.t.y=len(mapd)-1
-            if self.t.x<0:
-                self.t.x=0
-            elif self.t.x>len(mapd[self.t.y])-1:
-                self.t.x=len(mapd[self.t.y])-1
+            # a=randint(0,360)
+            # # self.t.x,self.t.y=int(self.x+sin(a)*3),int(self.y-cos(a)*3)
+            # self.t.x,self.t.y=self.x+randint(-2,2),self.y+randint(-2,2)
+            # if self.t.y<0:
+            #     self.t.y=0
+            # elif self.t.y>len(mapd)-1:
+            #     self.t.y=len(mapd)-1
+            # if self.t.x<0:
+            #     self.t.x=0
+            # elif self.t.x>len(mapd[self.t.y])-1:
+            #     self.t.x=len(mapd[self.t.y])-1
             # prat(self.t,1,20)
+            self.t.x,self.t.y=choice(self.avp)
+            prat(self.t,1,16)
         if self.t.x!=self.x and self.t.y!=self.y:
             self.path=[]
     def run(self,mapd,nots,pr):
+        if self.avp==[]:
+            for a,i in enumerate(mapd):
+                for b,j in enumerate(i):
+                    if j==0:
+                        self.avp.append((b,a))
         if int(self.x/10)==int(pr.x/10) and int(self.y/10)==int(pr.y/10):
             self.disp((self.y,self.x))
-        self.s+=self.sp+1#0.0001
+        self.s+=1
         if self.path!=None and len(self.path)<=1:#dist(self.x,self.y,self.t.x,self.t.y)
             self.t.x,self.t.y=-1,-1
             # prat("as",0,17)
@@ -89,9 +101,10 @@ class bob:
             # prat(str(len(self.path if self.path!=None else []))+" "*50,0,21)
             self.s=0
             dec=self.mve(mapd,nots)
+            # self.disp((self.y,self.x))
             if dec=="newPath":
                 self.getTarget(pr,mapd)
-trol=bob(7,9,"Troll","N",5,1)
+trol=bob(2,9,"Troll","N",5,1)
 bobs=[trol]
 # for i in range(0,360,6):
 #     prat(f"{i},{sin(i)}",10,10)

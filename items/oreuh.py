@@ -28,7 +28,7 @@ class brck:
     def __repr__(self):
         return self.nm
     def stat(self):
-        print(self.nm,self.txt)
+        print(self.nm,str(self))
         print(" ",self.idd)
         print(" ",self.pro)
         print(" ",self.ml)
@@ -68,7 +68,7 @@ class dirt52(brck):
     pass
 class chest52(brck):
     def __init__(self,nm,disp,sprd,num,pronc,mnLvl,roleth):
-        super().__init__(nm,disp,sprd,num,pronc,mnLvl,col="")
+        super().__init__(nm,disp,sprd,num,pronc,mnLvl,col="\033[48;2;119;69;19m")
         self.holds=[
             [itm(dirt,10),itm(void,0),itm(void,0),],
             [itm(void,0),itm(void,0),itm(void,0),],
@@ -202,17 +202,17 @@ class chest52(brck):
     def brek(self,p):
         pass
 no_rock=no_rock52("air"," ",10,0,"air",0)
-placed_rock=placed_rock52("placed rock","_",0,1,"placed rock",1,col="\033[100m")
-rock=rock52("rock","%",-1,2,"rock",1,col="\033[47m")#◻
-dark_rock=dark_rock52("dark rock","$",2,3,"dark rock",2,col="\033[40m")#█
-charium_ore=charium_ore52("charium ore","=",7,4,"ch-arh-ee-um ore",3,col="\033[47m\033[34m")#≈
-nevelium_ore=nevelium_ore52("nevelium ore","o",5,5,"neh-vel-ee-um ore",3,col="\033[47m\033[33m")#
-decante_ore=decante_ore52("decante ore","⋇",3,6,"dee-cant ore",4,col="\033[47m\033[32m")
-charcor_ore=charcor_ore52("charcor ore","&",10,7,"ch-arh-kor ore",1,col="\033[47m")#◘
+placed_rock=placed_rock52("placed rock","_",0,1,"placed rock",1,col="\033[48;2;211;211;211m")
+rock=rock52("rock","%",-1,2,"rock",1,col="\033[48;2;100;100;100m")#◻
+dark_rock=dark_rock52("dark rock","$",2,3,"dark rock",2,col="\033[48;2;27;27;27m")#█
+charium_ore=charium_ore52("charium ore","=",7,4,"ch-arh-ee-um ore",3,col="\033[48;2;0;100;0m")#≈
+nevelium_ore=nevelium_ore52("nevelium ore","o",5,5,"neh-vel-ee-um ore",3,col="\033[48;2;0;0;139m")#
+decante_ore=decante_ore52("decante ore","⋇",3,6,"dee-cant ore",4,col="\033[48;2;128;128;0m")
+charcor_ore=charcor_ore52("charcor ore","&",10,7,"ch-arh-kor ore",1,col="\033[48;2;139;0;0m")#◘
 
-void=brck("void"," ",0,8," ",1234567890,col="")
+void=brck("void"," ",0,8," ",1234567890,col="\033[48;2;0;0;0m")
 
-dirt=dirt52("dirt","@",15,9,"dirt",0,col="")
+dirt=dirt52("dirt","@",15,9,"dirt",0,col="\033[48;2;88;57;39m")
 
 chest=chest52("chest","C",1,10,"chest",0,[])
 nts=[no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest]
