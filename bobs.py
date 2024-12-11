@@ -106,7 +106,7 @@ class bob:
             if dec=="newPath":
                 self.getTarget(pr,mapd)
 trol=bob(2,9,"Troll","N",5,1)
-bobs=[trol]
+bobs=[]
 # for i in range(0,360,6):
 #     prat(f"{i},{sin(i)}",10,10)
 #     prat("@",int(10+sin(i)*5),int(10+cos(i)*5))
