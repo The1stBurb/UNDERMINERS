@@ -173,12 +173,16 @@ class chest52(brck):
             # continue
             else: 
                 flis=intput("Where is the first item? (inv,chest)")
+                if flis!="inv" and flis!="chest":
+                    continue
                 # inor=intput("Is it into your inventory or into the chest? (inv,chest)")
                 x1,y1=gtInt("What is the X coordinate of the item in "+("your inventory"if flis=="inv" else "the chest")+"?",1,(3 if flis=="chest" else 5)),gtInt("Whats the Y?",1,(3 if flis=="chest" else 6))
                 prat("\033[42m"+("|"+str((self.holds if flis=="chest"else p.hold)[y1-1][x1-1]))+"\033[0m",(x1-1)*16+3,y1+((1 if y1!=6 else 2) if flis=="inv"else 9))
                 print("")
                 prat("",1,21)
                 flis2=intput("Where is the second item? (inv,chest)")
+                if flis2!="inv" and flis2!="chest":
+                    continue
                 x2,y2=gtInt("What is the X coordinate of where you want to move it"+(" into your inventory"if flis2=="inv" else " into the chest")+"?",1,(5 if flis2=="inv" else 3)),gtInt("What is the Y?",1,(6 if flis2=="inv" else 3))
                 prat("\033[42m"+("|"+str((self.holds if flis2=="chest"else p.hold)[y2-1][x2-1]))+"\033[0m",(x2-1)*16+3,y2+((1 if y2!=6 else 2) if flis2=="inv"else 9))
                 print("")

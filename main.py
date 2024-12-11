@@ -1,5 +1,5 @@
 #https://docs.google.com/document/d/1c2sKY1Q4PDsK8h_j1TRbw3K_OkEq5jbrHTj6mb4z3LY/edit?tab=t.0
-from items.oreuh import nts,no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest,chest52,hts,pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword,burb
+from items.oreuh import nts,no_rock,placed_rock,rock,dark_rock,charium_ore,nevelium_ore,decante_ore,charcor_ore,void,dirt,chest,chest52,hts,pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword,burb,craft
 from base_funcs import *
 from bobs import xny,bobs
 from Loot.looter import gitStf
@@ -465,7 +465,7 @@ class plr:
                     prat("|"+str(j),(b)*16+3,(a)+(3 if a==5 else 2))
                 print("|")
             print("\nRow 6 is the bar you can access anytime! |EXIT|")
-            dor=intput("Would you like to move an item or exit? (move,exit)")
+            dor=intput("Would you like to move an item, craft or exit? (move,craft,exit)")
             if dor=="move":
                 x1,y1=gtInt("What is the X coordinate of the item?"),gtInt("Whats the Y?")
                 x2,y2=gtInt("What is the X coordinate of where you to move it?"),gtInt("What is the Y?")
@@ -481,6 +481,8 @@ class plr:
                 sleep(0.5)
                 print("\033c")
                 return
+            elif dor=="craft":
+                craft(self)
     def prInv1(self):
         for b in range(5):
             prat(b+1,b*16+3,1)
@@ -579,13 +581,17 @@ def getSave():
         # sv.write(str(mp.bit))
         b=sv.readlines()[0].replace("\n","")
     # print(b)
-    mp.bit=eval(piler.dec(b))
+    evald=eval(piler.dec(b))
+    mp.bit=evald[0]
+    p.hold=[[j for j in i]for i in evald[1]]
+    p.x,p.y=evald[2]
     mp.datar()
 def writSave():
     global mp
+    rs=[[repr(j)for j in i]for i in p.hold]
     with open("saveus/save.pile","w")as sv:
-        sv.write(piler.enc(mp.bit))
-if False:#intput("Get a new game, or use your old save? (new/old)")=="new":
+        sv.write(piler.enc([mp.bit,rs,(p.x,p.y)]))#piler.enc
+if intput("Get a new game, or use your old save? (new/old)")=="new":
     writSave()
 else:
     getSave()
