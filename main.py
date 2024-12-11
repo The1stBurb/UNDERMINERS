@@ -628,7 +628,13 @@ while True:
     # move(0,12)
     # if rkt.run():
     sleep(0.1)
-    prat("Use arrow keys, wasd coming soon, to move. \"i\" to open your inventory. \"o\" to open the chest in front of you. \"s\" to save the map only rn. \"b\" breaks the block in front of you, along with holding down an arrow key. Use number keys 1-5 to change your selected hotbar. \"p\" places the current selected block in front of you.",1,13)
+    #wasd/arrow-move
+    #u-save
+    #p-place
+    #b-break
+    #i-inve
+    #o-open chest
+    prat("Use arrow keys and wasd  to move. \"i\" to open your inventory. \"o\" to open the chest in front of you. \"u\" to save. \"b\" breaks the block in front of you, along with holding down an arrow key. Use number keys 1-5 to change your selected hotbar. \"p\" places the current selected block in front of you. \"o\" opens a chest in front of you.",1,13)
     print(m)
     do=keyboard.read_key()#input("u-up,r-right,d-down,l-left,b-break,i-inventory,1-5-held,p-place")
     # if pk[-1]=="a" and pk[-2]=="t" and pk[-3]=="a" and pk[-4]=="c":
@@ -661,6 +667,6 @@ while True:
         do="c"
     elif do == "left" or do == "a":
         do="v"
-    elif do=="]":
+    elif do=="u":
         writSave()
     
