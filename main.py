@@ -583,7 +583,7 @@ def getSave():
     # print(b)
     evald=eval(piler.dec(b))
     mp.bit=evald[0]
-    p.hold=[[j for j in i]for i in evald[1]]
+    p.hold=[[eval(j) for j in i]for i in evald[1]]
     p.x,p.y=evald[2]
     mp.datar()
 def writSave():

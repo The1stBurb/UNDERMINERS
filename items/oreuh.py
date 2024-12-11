@@ -205,14 +205,14 @@ class chest52(brck):
                 self.holds[y2-1][x2-1]=it1
     def brek(self,p):
         pass
-no_rock=no_rock52("air"," ",10,0,"air",0)
-placed_rock=placed_rock52("placed rock","_",0,1,"placed rock",1,col="\033[48;2;211;211;211m")
+no_rock=no_rock52("no_rock"," ",10,0,"air",0)
+placed_rock=placed_rock52("placed_rock","_",0,1,"placed rock",1,col="\033[48;2;211;211;211m")
 rock=rock52("rock","%",-1,2,"rock",1,col="\033[48;2;100;100;100m")#◻
-dark_rock=dark_rock52("dark rock","$",2,3,"dark rock",2,col="\033[48;2;27;27;27m")#█
-charium_ore=charium_ore52("charium ore","=",7,4,"ch-arh-ee-um ore",3,col="\033[48;2;0;100;0m")#≈
-nevelium_ore=nevelium_ore52("nevelium ore","o",5,5,"neh-vel-ee-um ore",3,col="\033[48;2;0;0;139m")#
-decante_ore=decante_ore52("decante ore","⋇",3,6,"dee-cant ore",4,col="\033[48;2;128;128;0m")
-charcor_ore=charcor_ore52("charcor ore","&",10,7,"ch-arh-kor ore",1,col="\033[48;2;139;0;0m")#◘
+dark_rock=dark_rock52("dark_rock","$",2,3,"dark rock",2,col="\033[48;2;27;27;27m")#█
+charium_ore=charium_ore52("charium_ore","=",7,4,"ch-arh-ee-um ore",3,col="\033[48;2;0;100;0m")#≈
+nevelium_ore=nevelium_ore52("nevelium_ore","o",5,5,"neh-vel-ee-um ore",3,col="\033[48;2;0;0;139m")#
+decante_ore=decante_ore52("decante_ore","⋇",3,6,"dee-cant ore",4,col="\033[48;2;128;128;0m")
+charcor_ore=charcor_ore52("charcor_ore","&",10,7,"ch-arh-kor ore",1,col="\033[48;2;139;0;0m")#◘
 #"\033[48;2;red;green;bluem"
 void=brck("void"," ",0,8," ",1234567890,col="\033[48;2;0;0;0m")
 
@@ -278,14 +278,14 @@ class nevelium_sword52(held):
     def __init__(self, nm, idd2, ms, dmg):
         super().__init__(nm, idd2, ms, dmg)
         self.bfy=[itm(nevelium_ore,2),itm(rock,1)]
-pick=pick52("Pickaxe",0,1,1)
-charcor_pick=charcor_pick52("Charcor Pickaxe",1,2,1)
-nevelium_pick=nevelium_pick52("Nevelium Pickaxe",2,3,2)
-burb=pick52("Burbaxe",-1,10,10)
-sword=sword52("Sword",3,0,3)
-charcor_sword=charcor_sword52("Charcor Sword",4,0,5)
-charium_sword=charium_sword52("Charium Sword",5,0,7)
-nevelium_sword=nevelium_sword52("Nevelium Sword",6,1,8)
+pick=pick52("pick",0,1,1)
+charcor_pick=charcor_pick52("charcor_pick",1,2,1)
+nevelium_pick=nevelium_pick52("nevelium_pick",2,3,2)
+burb=pick52("burb",-1,10,10)
+sword=sword52("sword",3,0,3)
+charcor_sword=charcor_sword52("charcor_sword",4,0,5)
+charium_sword=charium_sword52("charium_sword",5,0,7)
+nevelium_sword=nevelium_sword52("nevelium_sword",6,1,8)
 # _sword=_sword52("",7,1,10)
 hts=[pick,charcor_pick,nevelium_pick,sword,charcor_sword,charium_sword,nevelium_sword]
 # class p:

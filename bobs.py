@@ -49,7 +49,7 @@ class bob:
         self.y,self.x=d
         prat(self.tp if self.path!=None and len(self.path)>1 else "O",self.x+1,self.y+1)
         print()
-    def mve(self,mapd,nots):
+    def mve(self,mapd,nots,pr):
         # global mp
         if self.path==None:
             return "newPath"
@@ -58,7 +58,8 @@ class bob:
             self.s=self.sp+1    
             return "startPath"
         d=self.path[0]
-        self.disp(d)
+        if int(self.x/10)==int(pr.x/10) and int(self.y/10)==int(pr.y/10):
+            self.disp(d)
         self.path.remove(d)
         return ""
         # self.disp(d)
@@ -100,7 +101,7 @@ class bob:
         if self.s>self.sp:
             # prat(str(len(self.path if self.path!=None else []))+" "*50,0,21)
             self.s=0
-            dec=self.mve(mapd,nots)
+            dec=self.mve(mapd,nots,pr)
             # self.disp((self.y,self.x))
             if dec=="newPath":
                 self.getTarget(pr,mapd)

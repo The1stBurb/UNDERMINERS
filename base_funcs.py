@@ -48,7 +48,7 @@ class itm:
     def __str__(self):
         return f"{self.no}x {repr(self.tp)}"
     def __repr__(self):
-        return f"itm({self.tp.nm},{self.no})"
+        return f"itm({self.tp.nm},{self.no})"#__class__.__name__
 # def calcfps(num_frames=100): 
 #     fps_values = []
 #     prev_frame_time = time.time()
