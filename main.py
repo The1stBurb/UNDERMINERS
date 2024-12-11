@@ -432,6 +432,11 @@ class plr:
             if nx<0 or nx>len(mp.bit[ny])-1:
                 return
             if self.hnd().tp.ms>=nts[mp.bit[ny][nx]].ml:
+                if mp.bit[ny][nx]==10:
+                    c=mp.data[f"{nx},{ny}"]
+                    for i in c.holds:
+                        for j in i:
+                            self.addItm(j)
                 self.addItm(nts[mp.bit[ny][nx]])
                 mp.bit[ny][nx]=0
                 move(nx+1,ny+1)
@@ -493,6 +498,7 @@ class plr:
     def addItm(self,item):
         if not isinstance(item,itm):
             item=itm(item,1)
+        # print(repr(item))
         if item.tp.idd==0:
             return
         for i in range(5,-1,-1):
@@ -524,13 +530,13 @@ mp=MP()
 def pr(x,y):
     # print("\033c")
     move(1,1)
-    x2=int(x/10)*10
+    x2=int(x/20)*20
     y2=int(y/10)*10
     # yn=max(0,y)
     yx=min(y2+10,len(mp.bit))
     for i in range(y2,yx):
         # for k in range(2):
-        for j in range(x2,min(x2+10,len(mp.bit[i]))):
+        for j in range(x2,min(x2+20,len(mp.bit[i]))):
             tp=mp.bit[i][j]
             aired=tp in[0,1,8,10] or (i>0 and mp.bit[i-1][j]in[0,1,8]) or (i<len(mp.bit)-1 and mp.bit[i+1][j]in[0,1,8]) or (j>0 and mp.bit[i][j-1]in[0,1,8]) or (j<len(mp.bit[i])-1 and mp.bit[i][j+1]in[0,1,8])
             # move(i+2,j+2)
@@ -620,7 +626,7 @@ def texter():
 dev=False
 while True:
     fps.run()
-    prat("fps: "+str(fps.getCur())+"          ",13,1)
+    prat("fps: "+str(fps.getCur())+"          ",1,12)
     # if dpt.run():
     for i in bobs:
         i.run(mp.bit,[],p)
