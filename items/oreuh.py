@@ -234,6 +234,7 @@ class bify:
 class held:
     def __init__(self,nm,idd2,ms,dmg,bfy=[["","","",{}]]):#name of, id of,mine strength, attack damage
         self.nm,self.idd,self.id,self.ms,self.dmg=nm,-1,idd2,ms,dmg
+        self.col=""
     def __str__(self):
         return self.nm
     def __repr__(self):

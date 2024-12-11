@@ -309,7 +309,7 @@ class plr:
         self.us=["^",">","V","<"]
         self.hl=0
         self.hold=[
-            [itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],
+            [itm(rock,5),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],[itm(void,0),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],
             [itm(pick,1),itm(void,0),itm(void,0),itm(void,0),itm(void,0),],]
         #exli(exli(itm(void,0),5),5)
     def dr(self,ox,oy):
@@ -454,7 +454,7 @@ class plr:
         if drw:
             pr(self.x,self.y)
     def prInv(self):
-        # for i in self.hold:
+        # for i in self.hold:new
         #     for j in i:
         #         print(j)
         # intput()
@@ -470,10 +470,10 @@ class plr:
                     prat("|"+str(j),(b)*16+3,(a)+(3 if a==5 else 2))
                 print("|")
             print("\nRow 6 is the bar you can access anytime! |EXIT|")
-            dor=intput("Would you like to move an item, craft or exit? (move,craft,exit)")
+            dor="colour"#intput("Would you like to move an item, custom color an item, craft or exit? (move,craft,exit,colour)")
             if dor=="move":
-                x1,y1=gtInt("What is the X coordinate of the item?"),gtInt("Whats the Y?")
-                x2,y2=gtInt("What is the X coordinate of where you to move it?"),gtInt("What is the Y?")
+                x1,y1=gtInt("What is the X coordinate of the item?",1,5),gtInt("Whats the Y?",1,6)
+                x2,y2=gtInt("What is the X coordinate of where you to move it?",1,5),gtInt("What is the Y?",1,6)
                 # print(x1,y1,x2,y2)
                 it1=self.hold[y1-1][x1-1]
                 it2=self.hold[y2-1][x2-1]
@@ -488,6 +488,9 @@ class plr:
                 return
             elif dor=="craft":
                 craft(self)
+            elif dor=="colour":
+                x1,y1=1,1#gtInt("What is the X coordinate of the item?",1,5),gtInt("Whats the Y?",1,6)
+                self.colourify(x1,y1)
     def prInv1(self):
         for b in range(5):
             prat(b+1,b*16+3,1)
@@ -518,6 +521,24 @@ class plr:
                     self.hold[a][b]=itm(void,0)
     def hnd(self):
         return self.hold[5][self.hl]
+    def colourify(self,ix,iy):
+        cc=repr(self.hold[iy][ix].tp.col)
+        # cc=repr(newcc.col)
+        print(cc)
+        if cc=="":
+            cc=repr("\033[48;2;0;0;0m")
+        print(cc)
+        cc=cc[:-2].split(";")
+        print(cc)
+        print(cc[-1],cc[-2],cc[-3])
+        g,b,r=int(cc[-1]),int(cc[-2]),int(cc[-3])
+        print("RED             BLUE")
+        print("\n"*14)
+        print("GREEN")
+        while True:
+            break
+        print(repr(f"\033c[48;2;{r};{g};{b}"))
+        input("fiz")
 p=plr()
 
 # p.hold[0][0]=itm(rock,10)
@@ -597,7 +618,7 @@ def writSave():
     rs=[[repr(j)for j in i]for i in p.hold]
     with open("saveus/save.pile","w")as sv:
         sv.write(piler.enc([mp.bit,rs,(p.x,p.y)]))#piler.enc
-if intput("Get a new game, or use your old save? (new/old)")=="new":
+if False:#intput("Get a new game, or use your old save? (new/old)")=="new":
     writSave()
 else:
     getSave()
