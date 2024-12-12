@@ -21,6 +21,7 @@ class brck:
         self.ml=mnLvl
         self.ms=0
         self.col=col
+        self.pcb=True
         # print(nm,disp,sprd,num,pronc)
         # quit()
     def __str__(self):
@@ -235,6 +236,7 @@ class held:
     def __init__(self,nm,idd2,ms,dmg,bfy=[["","","",{}]]):#name of, id of,mine strength, attack damage
         self.nm,self.idd,self.id,self.ms,self.dmg=nm,-1,idd2,ms,dmg
         self.col=""
+        self.pcb=False
     def __str__(self):
         return self.nm
     def __repr__(self):

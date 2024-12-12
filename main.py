@@ -419,7 +419,7 @@ class plr:
             if self.x+mv[0]<0 or self.x+mv[0]>len(mp.bit[self.y+mv[1]])-1:
                 return
             if mp.bit[self.y+mv[1]][self.x+mv[0]]==0:
-                if not self.hnd().tp.idd in [0,8]:
+                if not self.hnd().tp.idd in [0,8] and self.hnd().tp.pcb:
                     mp.bit[self.y+mv[1]][self.x+mv[0]]=self.hnd().tp.idd
                     self.hold[5][self.hl].no-=1
                     self.fixInv()
@@ -470,7 +470,7 @@ class plr:
                     prat("|"+str(j),(b)*16+3,(a)+(3 if a==5 else 2))
                 print("|")
             print("\nRow 6 is the bar you can access anytime! |EXIT|")
-            dor="colour"#intput("Would you like to move an item, custom color an item, craft or exit? (move,craft,exit,colour)")
+            dor=intput("Would you like to move an item, custom color an item, craft or exit? (move,craft,exit,colour)")
             if dor=="move":
                 x1,y1=gtInt("What is the X coordinate of the item?",1,5),gtInt("Whats the Y?",1,6)
                 x2,y2=gtInt("What is the X coordinate of where you to move it?",1,5),gtInt("What is the Y?",1,6)
@@ -489,7 +489,7 @@ class plr:
             elif dor=="craft":
                 craft(self)
             elif dor=="colour":
-                x1,y1=1,1#gtInt("What is the X coordinate of the item?",1,5),gtInt("Whats the Y?",1,6)
+                x1,y1=gtInt("What is the X coordinate of the item?",1,5),gtInt("Whats the Y?",1,6)
                 self.colourify(x1,y1)
     def prInv1(self):
         for b in range(5):
@@ -524,21 +524,51 @@ class plr:
     def colourify(self,ix,iy):
         cc=repr(self.hold[iy][ix].tp.col)
         # cc=repr(newcc.col)
-        print(cc)
+        # print(cc255)
         if cc=="":
             cc=repr("\033[48;2;0;0;0m")
-        print(cc)
+        # print(cc)
         cc=cc[:-2].split(";")
-        print(cc)
-        print(cc[-1],cc[-2],cc[-3])
+        # print(cc)
+        # print(cc[-1],cc[-2],cc[-3])
         g,b,r=int(cc[-1]),int(cc[-2]),int(cc[-3])
-        print("RED             BLUE")
-        print("\n"*14)
-        print("GREEN")
+        print("\033c",end="")
+        # print("R"+(" "*14)+"B")
+        # print("\n"*14)
+        # print("G")
+        px,py=0,0
+        ppx,ppy=px,py
+        while not True:
+                sleep(0.5)
+                do=keyboard.read_key()
+                if do=="up"and py>0:
+                    py-=1
+                elif do=="right"and px<15:
+                    px+=1
+                elif do=="down"and py<15:
+                    py+=1
+                elif do=="left"and px>0:
+                    px-=1
+                elif do=="enter":
+                    break
+                if ppx!=px and ppy!=py:
+                    prat(" ",ppx+1,ppy+1)
+                    print("")
+                    prat("#",px+1,py+1)
+                    print("")
+                    prat(f"r:{(8-px+8-py)/2}, b:{(px+8-py)/2}, g:{(8-px+py)/2}",1,18)
+                    print("")
+                    ppx,ppy=px,py
         while True:
-            break
-        print(repr(f"\033c[48;2;{r};{g};{b}"))
-        input("fiz")
+            r=gtInt("What do you want the red to be?",0,255)
+            g=gtInt("What do you want the green to be?",0,255)
+            b=gtInt("What do you want the blue to be?",0,255)
+            good=intput(f"\033[48;2;{r};{g};{b}mIs this the right color? (y/n)\033[0m")
+            if good=="y":
+                break
+        # print(repr(f"\033c[48;2;{r};{g};{b}"))
+        # input("fiz")
+        self.hold[iy][ix].tp.col=f"\033c[48;2;{r};{g};{b}"
 p=plr()
 
 # p.hold[0][0]=itm(rock,10)
@@ -618,7 +648,7 @@ def writSave():
     rs=[[repr(j)for j in i]for i in p.hold]
     with open("saveus/save.pile","w")as sv:
         sv.write(piler.enc([mp.bit,rs,(p.x,p.y)]))#piler.enc
-if False:#intput("Get a new game, or use your old save? (new/old)")=="new":
+if intput("Get a new game, or use your old save? (new/old)")=="new":
     writSave()
 else:
     getSave()
