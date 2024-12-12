@@ -569,6 +569,7 @@ class plr:
         # print(repr(f"\033c[48;2;{r};{g};{b}"))
         # input("fiz")
         self.hold[iy][ix].tp.col=f"\033c[48;2;{r};{g};{b}"
+        print(repr(self.hold[iy][ix].tp.col))
 p=plr()
 
 # p.hold[0][0]=itm(rock,10)
